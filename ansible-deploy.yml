@@ -9,14 +9,15 @@
   tasks:
       
     - name: login to jfrog
-      shell: docker login -u siddeshgowda@hiqode.in -p Hiqode@123 hiqodeinnovations.jfrog.io
+      shell: docker login -u ${user} -p ${pass}  hiqodeinnovations.jfrog.io
     
     - name: pull an image
-      shell: docker pull hiqodeinnovations.jfrog.io/dockerimageappa/cicd-app/{{ microservice }}:v.1.0.{{ build_number }}
+      shell: docker pull hiqodeinnovations.jfrog.io/dockerimageappa/cicd-app/${{ microservice }}:v.1.0.${{ build_number }}
 
     #- name: remove container
      # shell: docker rm -f {{ microservice }}
         
     - name: create a application container
-      shell: docker run -id --name {{ microservice }} -p {{ port_cont }}:{{ port_host }} --network new-bridge-network hiqodeinnovations.jfrog.io/dockerimageappa/cicd-app/{{ microservice }}:v.1.0.{{ build_number }} 
+      shell: docker run -id --name {{ microservice }} -p {{ port_cont }}:{{ port_host }} --network new-bridge-network hiqodeinnovations.jfrog.io/dockerimageappa/cicd-app/${{ microservice }}:v.1.0.${{ build_number }}
+ 
  
